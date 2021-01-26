@@ -1,7 +1,7 @@
 const chai = require("chai");
 const chaiHTTP = require("chai-http");
 
-const mainEntryPoint = require("../../routes/home");
+const mainEntryPoint = require("../../index");
 
 chai.should();
 chai.use(chaiHTTP);
@@ -10,12 +10,13 @@ describe("Entry point", () => {
     context("GET /", () => {
         it("should get greeting back", (done) => {
             chai.request(mainEntryPoint)
-                .get("/")
+                .get("/home")
                 .end((err, res) => {
                     if (err) throw err;
-                    res.should.equal("Hello World!");
+                    res.text.should.equal("Hello World!");
                     done();
                 });
         });
     });
 });
+
